@@ -1,12 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
+import { View } from "react-native";
 import { Searchbar } from "react-native-paper";
-import { SearchContainer } from "../screens/restaurant.screen.styles";
+import styled from "styled-components";
+// import { SearchContainer } from "../../restaurants/screens/restaurant.screen.styles";
 import { LocationContext } from "../../../services/location/location.context";
 
-export const Search = ({isFavouritesToggled, onFavouritesToggle}) => {
+
+export const SearchContainer = styled(View)`
+  padding: ${(props) => props.theme.space[3]};
+  position: absolute;
+  z-index: 999;
+  top: 40px;
+  width: 100%;
+`;
+
+export const Search = () => {
   const { keyword, search } = useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = useState(keyword);
-  
+
   useEffect(() => {
     setSearchKeyword(keyword);
   }, [keyword]);
@@ -14,9 +25,8 @@ export const Search = ({isFavouritesToggled, onFavouritesToggle}) => {
   return (
     <SearchContainer>
       <Searchbar
-        icon={ isFavouritesToggled ? "heart" : "heart-outline"}
-        onIconPress={onFavouritesToggle}
-        placeholder="search for location"
+              placeholder="search for location"
+              icon="map"
         value={searchKeyword}
         onSubmitEditing={() => {
           search(searchKeyword);
