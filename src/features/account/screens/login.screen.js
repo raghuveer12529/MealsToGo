@@ -11,15 +11,16 @@ import {
 } from "../components/account.styles";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
+import { ActivityIndicator, Colors } from "react-native-paper";
 
-export const LoginScreen = ({navigation}) => {
+export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const { onLogin, isLoading, error } = useContext(AuthenticationContext);
   return (
     <AccountBackground>
-          <AccountCover />
-          
+      <AccountCover />
+
       <AccountContainer>
         <AuthInput
           label="E-mail"
@@ -36,7 +37,6 @@ export const LoginScreen = ({navigation}) => {
           textContentType="password"
           autoCapitalize="none"
           secureTextEntry
-          secure
           onChangeText={(e) => setPassword(e)}
         />
         <Spacer size="large" />
@@ -45,21 +45,19 @@ export const LoginScreen = ({navigation}) => {
             <Text variant="error">{error}</Text>
           </ErrorContainer>
         )}
-        <AuthButton
+
+        {!isLoading ? ( <AuthButton
           icon="lock-open-outline"
           onPress={() => onLogin(email, password)}
           mode="contained"
         >
           Login
-        </AuthButton>
-          </AccountContainer>
-          <AuthButton
-          
-          onPress={() => navigation.navigate("Main")}
-          mode="contained"
-        >
-          Back
-        </AuthButton>
+        </AuthButton>): ( <ActivityIndicator animating={true}  /> )}
+        
+      </AccountContainer>
+      <AuthButton onPress={() => navigation.navigate("Main")} mode="contained">
+        Back
+      </AuthButton>
     </AccountBackground>
   );
 };
