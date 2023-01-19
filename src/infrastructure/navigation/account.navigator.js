@@ -8,7 +8,16 @@ const Stack = createStackNavigator();
 
 export const AccountNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={(headerShown = false)}>
+    <Stack.Navigator
+      screenOptions={{
+        tabBarStyle: [
+          {
+            display: "flex",
+          },
+          null,
+        ],
+      }}
+    >
       <Stack.Screen name="Main" component={AccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />

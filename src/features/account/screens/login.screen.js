@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import LottieView from "lottie-react-native";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 import {
   AccountBackground,
@@ -7,7 +8,7 @@ import {
   AuthInput,
   AuthButton,
   ErrorContainer,
-  Title,
+  
 } from "../components/account.styles";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
@@ -17,9 +18,10 @@ export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { onLogin, isLoading, error } = useContext(AuthenticationContext);
+  const animation = useRef(null);
   return (
     <AccountBackground>
-      <AccountCover />
+      <AccountCover />     
 
       <AccountContainer>
         <AuthInput

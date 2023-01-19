@@ -8,14 +8,8 @@ import {
 } from "@expo-google-fonts/oswald";
 import { useFonts as UseLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import * as firebase from "firebase/app";
-import { initializeApp } from "firebase/app";
 
-import { LocationContextProvider } from "./src/services/location/location.context";
-import { RestaurantContextProvider } from "./src/services/restaurants/restaurants.context";
 import { Navigation } from "./src/infrastructure/navigation/index";
-import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
-import { useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 // firebase config
@@ -32,10 +26,8 @@ if (!firebase.getApps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const auth = getAuth();
 
 export default function App() {
-
   const [oswaldLoaded] = UseOswald({
     Oswald_400Regular,
   });
@@ -51,13 +43,7 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <RestaurantContextProvider>
-                <Navigation />
-              </RestaurantContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <Navigation />
         </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
